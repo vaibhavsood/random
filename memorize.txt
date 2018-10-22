@@ -1,0 +1,64 @@
+-----------------------------------------------------docker---------------------------------------------------------------
+General
+
+1) Run the container without --rm, exit the container, "docker ps -a" shows container in exited state
+	>> "docker commit <containerid>" or "docker commit <containerid> label", this commits the container to a new image
+	
+2) Run the container with -d option, attach using
+	>> "docker attach <containerid/containername>"
+	
+3) Attach another process to a running container
+	>> "docker exec -it <containerid/containername> <process, eg bash>"
+	
+4) Name a container while doing "docker run .."
+	>> "docker run --name <name> .."
+
+5) See logs for an existing container
+	>> "docker logs <containerid/containername>"
+	
+6) Limit amount of memory,cpu used by container
+	>> "docker run --memory <max allowed memory> .."
+	>> "docker run --cpu-shares/--cpu-quota <value> .."
+	
+Networking
+
+7) Expose port from a container
+	>> "docker run -p <outside port>:<inside port> .."
+	>> "docker run -p <inside port> .."
+	Second command dynamically assigns next available outside port
+	>> "docker port <containername>" gives list of ports exposed from the container 
+
+8) Link containers together
+	>> "docker run --link <containername> .."
+	
+9) Create docker private networks
+	>> "docker network create <networkname>"
+	>> "docker run --net=<networkname> .."
+	
+Storage
+
+10) Share a folder or a file from the host with the container
+	>> "docker run -v <path to folder on host>:<path to folder inside container> .."
+	
+11) Share between containers
+	>> "docker run -v <path to folder inside container> .."
+	Now put data inside this folder and run below command to start another container
+	>> "docker run --volumes-from <name of container> .."
+	These volumes are ephemeral, they are not saved when all containers exit
+	
+Dockerfile
+
+FROM, MAINTAINER, RUN, ADD, ENV
+
+ENTRYPOINT -- specifies the start of the command to run, anything specified in "docker run" is appended to ENTRYPOINT command
+COMMAND -- specifies whole command to run, anything specified in "docker run" is run instead of COMMAND command
+
+EXPOSE <port> -- maps port into container
+
+VOLUME ["/host/path" "/container/path"]
+VOLUME ["/shared-data"]
+
+WORKDIR <path> -- cd to this path
+
+USER <username> -- run commands as this user
+	
