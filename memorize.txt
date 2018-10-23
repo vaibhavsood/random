@@ -61,4 +61,36 @@ VOLUME ["/shared-data"]
 WORKDIR <path> -- cd to this path
 
 USER <username> -- run commands as this user
+
+-----------------------------------------------------java---------------------------------------------------------------
+
+IO
+
+File Handling
+
+Representing file/folder path
+java.nio.file.Path
+java.nio.file.Paths
+>> Path path = Paths.get("<path to file/folder");
+
+Copying/deleting a file, create a directory
+java.nio.file.Files
+>> Files.copy(source, target);
+>> Files.delete(target);
+>> Files.createDirectory(target);
+
+Read/write a file
+
+>> Charset charset = Charset.forName("US-ASCII");
+>> BufferedReader br = Files.newBufferedReader(source, charset);
+>> while ((line = br.readLine()) != null) {..}
+
+>> BufferedWriter bw = Files.newBufferedWriter(source, charset);
+>> bw.append(..);
+>> bw.newLine();
+
+
+
+
+
 	
